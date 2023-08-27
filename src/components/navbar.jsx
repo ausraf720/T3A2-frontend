@@ -10,8 +10,5 @@ export default function Navbar() {
                 Go to main page!
             </a>
         </div>
-
-
-
     )
 }
