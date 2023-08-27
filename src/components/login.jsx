@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 
-const user = "Blah"
-const pass = "Blah"
-
-
 /*****************************************************************************/
 
 /* This code is for making fake users, needs to be replaced by database entries*/
@@ -41,45 +37,93 @@ function pass_checker(users_array, user_attempt, pass_attempt) {
     }
 }
 
+function user_exist_checker(users_array, user_attempt) {
+    const username_array = users_array.map(x => x.user)
+    const index = username_array.indexOf(user_attempt)
+    if (index == -1) {
+        return "False" 
+    } else {
+        return "True"
+    }
+}
+
 /*****************************************************************************/
 
 export default function Login() {
-    const [inputs, setInputs] = useState({});
+    
+    const [page, setPage] = useState("signup")
+    const handlePageChange = (event) => {
+        setPage(event.target.value)
+      }
+
+    const [inputs, setInputs] = useState({})
+    const [login, setLogin] = useState("Not logged in")
   
     const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+        const name = event.target.name
+        const value = event.target.value
         setInputs(values => ({...values, [name]: value}))
     }
   
+    // All code to handle submits for both login and signup here
     const handleSubmit = (event) => {
-        event.preventDefault();
-        if (pass_checker(users_array, inputs.username, inputs.password) === "True") {
-            alert(`Welcome ${inputs.username}`)
-        } else {
-            alert(`Username and or password not correct.`)
+        
+        event.preventDefault()
+        if (page == "login") {     
+            if (pass_checker(users_array, inputs.username, inputs.password) === "True") {
+                alert(`Welcome ${inputs.username}`)
+                setLogin(inputs.username)
+            } else {
+                alert(`Username and or password not correct.`)
+            }
+        } else if (page == "signup") {
+            if (user_exist_checker(users_array, inputs.username) == "True") {
+                alert('User already exists')
+            } else {
+                
+                // Carry out function to add user to database
+                // Also make sure password is not null etc.
+                alert(`Welcome ${inputs.username}`)
+                setLogin(inputs.username)
+            }
         }
     }
-  
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Enter your name:
-            <input 
-                type="text" 
-                name="username" 
-                value={inputs.username || ""} 
-                onChange={handleChange}
-            />
-            </label>
-            <label>Enter your password:
-            <input 
-                type="text" 
-                name="password" 
-                value={inputs.password || ""} 
-                onChange={handleChange}
-            />
-            </label>
-            <input type="submit" />
-        </form>
+        <div>
+            <h3>
+                User: {login}
+            </h3>
+            <h4>
+                Would you like to login or signup?
+            </h4>
+            <form>
+                <select value={page} onChange={handlePageChange}>
+                    <option value="login">Login</option>
+                    <option value="signup">Signup</option>
+                </select>
+            </form>
+            <p>
+                Currently trying to {page}.
+            </p>
+            <form onSubmit={handleSubmit}>
+                <label>Enter your username:
+                <input 
+                    type="text" 
+                    name="username" 
+                    value={inputs.username || ""} 
+                    onChange={handleChange}
+                />
+                </label>
+                <label>Enter your password:
+                <input 
+                    type="text" 
+                    name="password" 
+                    value={inputs.password || ""} 
+                    onChange={handleChange}
+                />
+                </label>
+                <input type="submit" />
+            </form>
+        </div>
     )
-  }
+} 
