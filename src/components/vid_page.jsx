@@ -40,7 +40,7 @@ const q1_l1 = new Question("What is the capital of Australia?", 3, ["Melbourne",
 const q1_l2 = new Question("What is the capital of NZ?", 1, ["Auckland", "Wellington", "Christchurch", "Middle Earth"])
 const q1_l3 = new Question("What is the capital of Romania?", 3, ["Moldova", "Budapest", "Transylvania", "Bucharest"])
 
-const q2_l1 = new Question("Which is not in the US?", 2, ["New York", "California", "Canada", "Florida"])
+const q2_l1 = new Question("Which is not in the US?", 2, ["New York", "California", "Ontario", "Florida"])
 const q2_l2 = new Question("Which is not in the UK?", 2, ["England", "Wales", "Ireland", "Scotland"])
 const q2_l3 = new Question("Which is not in the EU?", 0, ["Switzerland", "Cyprus", "Estonia", "Slovakia"])
 
@@ -91,6 +91,12 @@ function Vid() {
     const [qIndex, setIndex] = useState(rng(3))
     const q = q_array[level-1][qIndex]
 
+    function answerHandler(option) {
+        setLevel(questionHandler(q, option, level))
+        setNum(goUp(num)) 
+        setIndex(rng(3))
+    }
+
     if (num != 0) {
         return (
             <div>
@@ -126,10 +132,10 @@ function Vid() {
                     <h2>
                         {q.ask}
                     </h2>
-                    <button onClick={() => {setLevel(questionHandler(q, 0, level)); setNum(goUp(num)); setIndex(rng(3))}}>{q.options[0]}</button>
-                    <button onClick={() => {setLevel(questionHandler(q, 1, level)); setNum(goUp(num)); setIndex(rng(3))}}>{q.options[1]}</button>
-                    <button onClick={() => {setLevel(questionHandler(q, 2, level)); setNum(goUp(num)); setIndex(rng(3))}}>{q.options[2]}</button>
-                    <button onClick={() => {setLevel(questionHandler(q, 3, level)); setNum(goUp(num)); setIndex(rng(3))}}>{q.options[3]}</button>
+                    <button onClick={() => answerHandler(0)}>{q.options[0]}</button>
+                    <button onClick={() => answerHandler(1)}>{q.options[1]}</button>
+                    <button onClick={() => answerHandler(2)}>{q.options[2]}</button>
+                    <button onClick={() => answerHandler(3)}>{q.options[3]}</button>
 
                 </div>
             
