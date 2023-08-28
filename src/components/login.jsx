@@ -9,7 +9,7 @@ class User {
       this.user = user;
       this.pass = pass;
     }
-  }
+}
 
 const user1 = new User("user1", "pass1")
 const user2 = new User("user2", "pass2")
@@ -80,7 +80,7 @@ export default function Login() {
             if (user_exist_checker(users_array, inputs.username) == "True") {
                 alert('User already exists')
             } else {
-                
+
                 // Carry out function to add user to database
                 // Also make sure password is not null etc.
                 alert(`Welcome ${inputs.username}`)
