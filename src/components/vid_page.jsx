@@ -36,11 +36,23 @@ class Question {
 }
 
 
-const q1 = new Question("What is the capital of Australia?", 3, ["Melbourne", "Sydney", "Brisbane", "Canberra"])
-const q2 = new Question("What is the capital of NZ?", 1, ["Auckland", "Wellington", "Christchurch", "Middle Earth"])
-const q3 = new Question("Which is not in the UK?", 2, ["England", "Wales", "Ireland", "Scotland"])
+const q1_l1 = new Question("What is the capital of Australia?", 3, ["Melbourne", "Sydney", "Brisbane", "Canberra"])
+const q1_l2 = new Question("What is the capital of NZ?", 1, ["Auckland", "Wellington", "Christchurch", "Middle Earth"])
+const q1_l3 = new Question("What is the capital of Romania?", 3, ["Moldova", "Budapest", "Transylvania", "Bucharest"])
 
-let q_array = [q1, q2, q3]
+const q2_l1 = new Question("Which is not in the US?", 2, ["New York", "California", "Canada", "Florida"])
+const q2_l2 = new Question("Which is not in the UK?", 2, ["England", "Wales", "Ireland", "Scotland"])
+const q2_l3 = new Question("Which is not in the EU?", 0, ["Switzerland", "Cyprus", "Estonia", "Slovakia"])
+
+const q3_l1 = new Question("Which has the most people?", 1, ["USA", "China", "Indonesia", "Japan"])
+const q3_l2 = new Question("Which has the least people?", 0, ["Spain", "Germany", "France", "Italy"])
+const q3_l3 = new Question("Which has the most poeple?", 3, ["Chad", "Egypt", "South Africa", "Nigeria"])
+
+
+
+let q_array = [[q1_l1, q2_l1, q3_l1],
+                [q1_l2, q2_l2, q3_l2],
+                [q1_l3, q2_l3, q3_l3]]
 
 
 
@@ -69,10 +81,15 @@ function questionHandler(question, selection, level) {
     }
 }
 
+function rng(max) {
+    return Math.floor(Math.random() * max);
+  }
+
 function Vid() {
     const [num, setNum] = useState(1)
     const [level, setLevel] = useState(1)
-    const q = q_array[level-1]
+    const [qIndex, setIndex] = useState(rng(3))
+    const q = q_array[level-1][qIndex]
 
     if (num != 0) {
         return (
@@ -109,10 +126,10 @@ function Vid() {
                     <h2>
                         {q.ask}
                     </h2>
-                    <button onClick={() => {setLevel(questionHandler(q, 0, level)); setNum(goUp(num))}}>{q.options[0]}</button>
-                    <button onClick={() => {setLevel(questionHandler(q, 1, level)); setNum(goUp(num))}}>{q.options[1]}</button>
-                    <button onClick={() => {setLevel(questionHandler(q, 2, level)); setNum(goUp(num))}}>{q.options[2]}</button>
-                    <button onClick={() => {setLevel(questionHandler(q, 3, level)); setNum(goUp(num))}}>{q.options[3]}</button>
+                    <button onClick={() => {setLevel(questionHandler(q, 0, level)); setNum(goUp(num)); setIndex(rng(3))}}>{q.options[0]}</button>
+                    <button onClick={() => {setLevel(questionHandler(q, 1, level)); setNum(goUp(num)); setIndex(rng(3))}}>{q.options[1]}</button>
+                    <button onClick={() => {setLevel(questionHandler(q, 2, level)); setNum(goUp(num)); setIndex(rng(3))}}>{q.options[2]}</button>
+                    <button onClick={() => {setLevel(questionHandler(q, 3, level)); setNum(goUp(num)); setIndex(rng(3))}}>{q.options[3]}</button>
 
                 </div>
             
