@@ -14,7 +14,6 @@ function App() {
                     <h1>Welcome!</h1>
                     <Login />
                 </div> } />
-                <Route path="/main" element={<Vid />} />
             </Routes>
         </BrowserRouter>
     )

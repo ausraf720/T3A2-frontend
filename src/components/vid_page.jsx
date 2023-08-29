@@ -100,7 +100,6 @@ function Vid() {
     if (num != 0) {
         return (
             <div>
-                <Navbar />
                 <h1>Video {num} goes here</h1>
                 <button onClick={() => setNum(goDown(num))}>Go Back</button>
                 <button onClick={() => setNum(goUp(num))}>Go Forward</button>
@@ -123,7 +122,6 @@ function Vid() {
                 <h1>QUESTION TIME!</h1>
                 <button onClick={() => setNum(goDown(num))}>Go Back</button>
                 <button onClick={() => setNum(goUp(num))}>Go Forward</button>
-                
                 
                 <div>
                     <h3>

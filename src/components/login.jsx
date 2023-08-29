@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Vid from './vid_page'
 
 /*****************************************************************************/
 
@@ -8,6 +9,7 @@ class User {
     constructor(user, pass) {
       this.user = user;
       this.pass = pass;
+      // this.levels = levels;
     }
 }
 
@@ -51,13 +53,13 @@ function user_exist_checker(users_array, user_attempt) {
 
 export default function Login() {
     
-    const [page, setPage] = useState("signup")
+    const [page, setPage] = useState("login")
     const handlePageChange = (event) => {
         setPage(event.target.value)
       }
 
     const [inputs, setInputs] = useState({})
-    const [login, setLogin] = useState("Not logged in")
+    const [currentUser, setUser] = useState("Nobody logged in")
   
     const handleChange = (event) => {
         const name = event.target.name
@@ -72,7 +74,8 @@ export default function Login() {
         if (page == "login") {     
             if (pass_checker(users_array, inputs.username, inputs.password) === "True") {
                 alert(`Welcome ${inputs.username}`)
-                setLogin(inputs.username)
+                setUser(inputs.username)
+                setPage("loggedIn")
             } else {
                 alert(`Username and or password not correct.`)
             }
@@ -84,46 +87,57 @@ export default function Login() {
                 // Carry out function to add user to database
                 // Also make sure password is not null etc.
                 alert(`Welcome ${inputs.username}`)
-                setLogin(inputs.username)
+                setUser(inputs.username)
+                setPage("loggedIn")
             }
         }
     }
     return (
         <div>
             <h3>
-                User: {login}
+                User: {currentUser}
             </h3>
-            <h4>
-                Would you like to login or signup?
-            </h4>
-            <form>
-                <select value={page} onChange={handlePageChange}>
-                    <option value="login">Login</option>
-                    <option value="signup">Signup</option>
-                </select>
-            </form>
-            <p>
-                Currently trying to {page}.
-            </p>
-            <form onSubmit={handleSubmit}>
-                <label>Enter your username:
-                <input 
-                    type="text" 
-                    name="username" 
-                    value={inputs.username || ""} 
-                    onChange={handleChange}
-                />
-                </label>
-                <label>Enter your password:
-                <input 
-                    type="text" 
-                    name="password" 
-                    value={inputs.password || ""} 
-                    onChange={handleChange}
-                />
-                </label>
-                <input type="submit" />
-            </form>
+            {page != "loggedIn" && <div>  
+                <h4>
+                    Would you like to login or signup?
+                </h4>
+                <form>
+                    <select value={page} onChange={handlePageChange}>
+                        <option value="login">Login</option>
+                        <option value="signup">Signup</option>
+                    </select>
+                </form>
+                <p>
+                    Currently trying to {page}.
+                </p>
+                <form onSubmit={handleSubmit}>
+                    <label>Enter your username:
+                    <input 
+                        type="text" 
+                        name="username" 
+                        value={inputs.username || ""} 
+                        onChange={handleChange}
+                    />
+                    </label>
+                    <label>Enter your password:
+                    <input 
+                        type="text" 
+                        name="password" 
+                        value={inputs.password || ""} 
+                        onChange={handleChange}
+                    />
+                    </label>
+                    <input type="submit" />
+                </form>
+            </div>}
+            {page=="loggedIn" && <div>
+
+                <button onClick={() => {setPage("login"); setUser("Nobody logged in")}
+                }>Logout</button>
+
+                <Vid /> 
+
+            </div>}
         </div>
     )
 } 
