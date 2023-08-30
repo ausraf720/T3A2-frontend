@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Navbar from './navbar'
 
 import ps1 from '../topic1/ps1.png'
 import ps2 from '../topic1/ps2.png'
@@ -22,16 +21,21 @@ import sdc from '../topic1/sdc.jpeg'
 // Videos are of [1, 2, 3, 4, 5]
 // Question is 0
 
-let videoArray = [[ps1, ps2, ps3, ps4, ps5],
-                    [gb, gba, ds, _3ds, ns],
-                    [sg1000, sms, smd, ss, sdc]
-                ]
 
 class Question {
     constructor(ask, correct, options) {
         this.ask = ask;
         this.correct = correct;
         this.options = options;
+    }
+}
+
+class Topic {
+    constructor(qArray, vidArray, topicName, topicLevel) {
+        this.qArray = qArray;
+        this.vidArray = vidArray;
+        this.topicName = topicName;
+        this.topicLevel = topicLevel;
     }
 }
 
@@ -50,10 +54,15 @@ const q3_l3 = new Question("Which has the most poeple?", 3, ["Chad", "Egypt", "S
 
 
 
-let q_array = [[q1_l1, q2_l1, q3_l1],
-                [q1_l2, q2_l2, q3_l2],
-                [q1_l3, q2_l3, q3_l3]]
 
+
+const t1l1 = new Topic([q1_l1, q2_l1, q3_l1], [ps1, ps2, ps3, ps4, ps5], "topic1", 1)
+const t1l2 = new Topic([q1_l2, q2_l2, q3_l2], [gb, gba, ds, _3ds, ns], "topic1", 2)
+const t1l3 = new Topic([q1_l3, q2_l3, q3_l3], [sg1000, sms, smd, ss, sdc], "topic1", 3)
+
+const t2l1 = ""
+
+const topicObject = { topic1: [t1l1, t1l2, t1l3], topic2: [t2l1]}
 
 
 function goDown(num) {
@@ -71,10 +80,16 @@ function goUp(num) {
     }
 }
 
-function questionHandler(question, selection, level) {
+function questionHandler(question, selection, level, maxLevel) {
     if (selection == question.correct) {
         alert("Answer was correct!")
-        return level + 1
+        if (level == maxLevel) {
+            alert("Max level reached!")
+            return level
+        } else {
+            return level + 1
+        }
+        
     } else {
         alert("Answer was wrong!")
         return level
@@ -85,17 +100,22 @@ function rng(max) {
     return Math.floor(Math.random() * max);
   }
 
-function Vid() {
+function Vid(props) {
     const [num, setNum] = useState(1)
-    const [level, setLevel] = useState(1)
+    const [topic, setTopic] = useState(topicObject.topic1)
+    const [level, setLevel] = useState(props.levels)
     const [qIndex, setIndex] = useState(rng(3))
-    const q = q_array[level-1][qIndex]
+    const q = topic[level-1].qArray[qIndex]
 
     function answerHandler(option) {
-        setLevel(questionHandler(q, option, level))
+        setLevel(questionHandler(q, option, level, topic.length))
         setNum(goUp(num)) 
         setIndex(rng(3))
     }
+
+    const handleTopicChange = (event) => {
+        setTopic(event.target.value)
+      }
 
     if (num != 0) {
         return (
@@ -107,18 +127,22 @@ function Vid() {
                         Current level: {level}
                     </h3>
                 <div>
-                    <img src={videoArray[level-1][num-1]} 
+                    <img src={topic[level-1].vidArray[num-1]} 
                     alt=""
                     height="300"
                     />
                 </div>
-            
+                <form>
+                    <select value={topic} onChange={handleTopicChange}>
+                        <option value={topicObject.topic1}>topic1</option>
+                    </select>
+                </form>
             </div>
         )
     } else {
         return (
             <div>
-                <Navbar />
+
                 <h1>QUESTION TIME!</h1>
                 <button onClick={() => setNum(goDown(num))}>Go Back</button>
                 <button onClick={() => setNum(goUp(num))}>Go Forward</button>
@@ -140,7 +164,6 @@ function Vid() {
             </div>
         )
     }
-
     
 }
 
