@@ -13,12 +13,12 @@ class User {
     }
 }
 
+let topicLevels = { topic1: 2, topic2: 1 }
 
-
-let user1 = new User("user1", "pass1", 1)
-let user2 = new User("user2", "pass2", 1)
-let user3 = new User("user3", "pass3", 1)
-let user4 = new User("user4", "pass4", 1)
+let user1 = new User("user1", "pass1", topicLevels)
+let user2 = new User("user2", "pass2", topicLevels)
+let user3 = new User("user3", "pass3", topicLevels)
+let user4 = new User("user4", "pass4", topicLevels)
 
 let userNone = new User("Nobody logged in", "no pass", 0)
 
@@ -139,7 +139,7 @@ export default function Login() {
                 <button onClick={() => {setPage("login"); setUser(userNone)}
                 }>Logout</button>
 
-                <Vid levels = { currentUser.levels } /> 
+                <Vid levels = {topicLevels} /> 
 
             </div>}
         </div>

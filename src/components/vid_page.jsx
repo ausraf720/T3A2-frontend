@@ -18,6 +18,12 @@ import smd from '../topic1/smd.jpeg'
 import ss from '../topic1/ss.png'
 import sdc from '../topic1/sdc.jpeg'
 
+import train1 from '../topic2/train1.jpg'
+import train2 from '../topic2/train2.jpg'
+import train3 from '../topic2/train3.jpg'
+import train4 from '../topic2/train4.jpg'
+import train5 from '../topic2/train5.jpg'
+
 // Videos are of [1, 2, 3, 4, 5]
 // Question is 0
 
@@ -53,16 +59,18 @@ const q3_l2 = new Question("Which has the least people?", 0, ["Spain", "Germany"
 const q3_l3 = new Question("Which has the most poeple?", 3, ["Chad", "Egypt", "South Africa", "Nigeria"])
 
 
-
+const q1_t2 = new Question("2 + 6", 2, [4, 6, 8, 10])
+const q2_t2 = new Question("4 x 1", 3, [1, 2, 3, 4])
+const q3_t2 = new Question("10 - 5", 0, [5, 10, 15, 20])
 
 
 const t1l1 = new Topic([q1_l1, q2_l1, q3_l1], [ps1, ps2, ps3, ps4, ps5], "topic1", 1)
 const t1l2 = new Topic([q1_l2, q2_l2, q3_l2], [gb, gba, ds, _3ds, ns], "topic1", 2)
 const t1l3 = new Topic([q1_l3, q2_l3, q3_l3], [sg1000, sms, smd, ss, sdc], "topic1", 3)
 
-const t2l1 = ""
+const t2l1 = new Topic([q1_t2, q2_t2, q3_t2], [train1, train2, train3, train4, train5], "topic2", 1)
 
-const topicObject = { topic1: [t1l1, t1l2, t1l3], topic2: [t2l1]}
+const topicObject = { topic1: [t1l1, t1l2, t1l3], topic2: [t2l1] }
 
 
 function goDown(num) {
@@ -80,19 +88,20 @@ function goUp(num) {
     }
 }
 
-function questionHandler(question, selection, level, maxLevel) {
+function questionHandler(question, selection, levels, name, maxLevel) {
     if (selection == question.correct) {
         alert("Answer was correct!")
-        if (level == maxLevel) {
+        if (levels[name] == maxLevel) {
             alert("Max level reached!")
-            return level
+            return levels
         } else {
-            return level + 1
+            levels[name] += 1
+            return levels
         }
         
     } else {
         alert("Answer was wrong!")
-        return level
+        return levels
     }
 }
 
@@ -103,19 +112,18 @@ function rng(max) {
 function Vid(props) {
     const [num, setNum] = useState(1)
     const [topic, setTopic] = useState(topicObject.topic1)
-    const [level, setLevel] = useState(props.levels)
+    const name = topic[0].topicName
+
+    const [levels, setLevels] = useState(props.levels)
     const [qIndex, setIndex] = useState(rng(3))
-    const q = topic[level-1].qArray[qIndex]
+    const q = topic[levels[name]-1].qArray[qIndex]
 
     function answerHandler(option) {
-        setLevel(questionHandler(q, option, level, topic.length))
+        setLevels(questionHandler(q, option, levels, name, topic.length))
         setNum(goUp(num)) 
         setIndex(rng(3))
     }
 
-    const handleTopicChange = (event) => {
-        setTopic(event.target.value)
-      }
 
     if (num != 0) {
         return (
@@ -124,19 +132,24 @@ function Vid(props) {
                 <button onClick={() => setNum(goDown(num))}>Go Back</button>
                 <button onClick={() => setNum(goUp(num))}>Go Forward</button>
                 <h3>
-                        Current level: {level}
-                    </h3>
+                    Current level for topic: {levels[name]}
+                </h3>
+                <h4>
+                    Current topic: {topic[0].topicName}
+                </h4>
+                
                 <div>
-                    <img src={topic[level-1].vidArray[num-1]} 
+                    Topics:
+                    <button onClick={() => setTopic(topicObject.topic1)}>Topic 1</button>
+                    <button onClick={() => setTopic(topicObject.topic2)}>Topic 2</button>
+                </div>
+                
+                <div>
+                    <img src={topic[levels[name]-1].vidArray[num-1]} 
                     alt=""
                     height="300"
                     />
                 </div>
-                <form>
-                    <select value={topic} onChange={handleTopicChange}>
-                        <option value={topicObject.topic1}>topic1</option>
-                    </select>
-                </form>
             </div>
         )
     } else {
@@ -149,7 +162,7 @@ function Vid(props) {
                 
                 <div>
                     <h3>
-                        Current level: {level}
+                        Current level for topic: {levels[name]}
                     </h3>
                     <h2>
                         {q.ask}
