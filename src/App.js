@@ -1,7 +1,6 @@
 import './App.css'
 import Navbar from './components/navbar'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Vid from './components/vid_page'
 import Login from './components/login'
 
 function App() {

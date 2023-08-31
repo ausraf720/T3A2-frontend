@@ -65,7 +65,7 @@ const q3_t2 = new Question("10 - 5", 0, [5, 10, 15, 20])
 
 
 const t1l1 = new Topic([q1_l1, q2_l1, q3_l1], [ps1, ps2, ps3, ps4, ps5], "topic1", 1)
-const t1l2 = new Topic([q1_l2, q2_l2, q3_l2], [gb, gba, ds, _3ds, ns], "topic1", 2)
+const t1l2 = new Topic([q1_l2, q2_l2, q3_l1], [gb, gba, ds, _3ds, ns], "topic1", 2)
 const t1l3 = new Topic([q1_l3, q2_l3, q3_l3], [sg1000, sms, smd, ss, sdc], "topic1", 3)
 
 const t2l1 = new Topic([q1_t2, q2_t2, q3_t2], [train1, train2, train3, train4, train5], "topic2", 1)
@@ -73,15 +73,15 @@ const t2l1 = new Topic([q1_t2, q2_t2, q3_t2], [train1, train2, train3, train4, t
 const topicObject = { topic1: [t1l1, t1l2, t1l3], topic2: [t2l1] }
 
 
-function goDown(num) {
+function goDown(num, maxNum) {
     if (num == 0) {
-        return 5
+        return maxNum
     } else {
         return num - 1
     }
 }
-function goUp(num) {
-    if (num == 5) {
+function goUp(num, maxNum) {
+    if (num == maxNum) {
         return 0
     } else {
         return num + 1
@@ -115,13 +115,18 @@ function Vid(props) {
     const name = topic[0].topicName
 
     const [levels, setLevels] = useState(props.levels)
-    const [qIndex, setIndex] = useState(rng(3))
+    
+    const qNum = topic[levels[name]-1].qArray.length
+    const [qIndex, setIndex] = useState(rng(qNum))
     const q = topic[levels[name]-1].qArray[qIndex]
+    
+
+    const vidsNum = topic[levels[name]-1].vidArray.length
 
     function answerHandler(option) {
         setLevels(questionHandler(q, option, levels, name, topic.length))
-        setNum(goUp(num)) 
-        setIndex(rng(3))
+        setNum(goUp(num, vidsNum)) 
+        setIndex(rng(qNum))
     }
 
 
@@ -129,8 +134,8 @@ function Vid(props) {
         return (
             <div>
                 <h1>Video {num} goes here</h1>
-                <button onClick={() => setNum(goDown(num))}>Go Back</button>
-                <button onClick={() => setNum(goUp(num))}>Go Forward</button>
+                <button onClick={() => setNum(goDown(num, vidsNum))}>Go Back</button>
+                <button onClick={() => setNum(goUp(num, vidsNum))}>Go Forward</button>
                 <h3>
                     Current level for topic: {levels[name]}
                 </h3>
@@ -140,8 +145,8 @@ function Vid(props) {
                 
                 <div>
                     Topics:
-                    <button onClick={() => setTopic(topicObject.topic1)}>Topic 1</button>
-                    <button onClick={() => setTopic(topicObject.topic2)}>Topic 2</button>
+                    <button onClick={() => {setTopic(topicObject.topic1); setNum(1)}}>Topic 1</button>
+                    <button onClick={() => {setTopic(topicObject.topic2); setNum(1)}}>Topic 2</button>
                 </div>
                 
                 <div>
@@ -157,8 +162,8 @@ function Vid(props) {
             <div>
 
                 <h1>QUESTION TIME!</h1>
-                <button onClick={() => setNum(goDown(num))}>Go Back</button>
-                <button onClick={() => setNum(goUp(num))}>Go Forward</button>
+                <button onClick={() => setNum(goDown(num, vidsNum))}>Go Back</button>
+                <button onClick={() => setNum(goUp(num, vidsNum))}>Go Forward</button>
                 
                 <div>
                     <h3>
