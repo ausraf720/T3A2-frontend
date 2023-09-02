@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Vid from './vid_page'
 
 /*****************************************************************************/
@@ -13,12 +13,14 @@ class User {
     }
 }
 
-let topicLevels = { topic1: 2, topic2: 1 }
+let topicLevels = { topic1: 2, topic2: 1, Napoleon: 1, NapoleonExtra: 1 }
 
 let user1 = new User("user1", "pass1", topicLevels)
 let user2 = new User("user2", "pass2", topicLevels)
 let user3 = new User("user3", "pass3", topicLevels)
 let user4 = new User("user4", "pass4", topicLevels)
+
+
 
 let userNone = new User("Nobody logged in", "no pass", 0)
 
@@ -52,6 +54,27 @@ function user_exist_checker(users_array, user_attempt) {
 /*****************************************************************************/
 
 export default function Login() {
+    
+    const [users, setUsers] = useState([])
+
+    const fetchUserData = () => {
+        fetch('https://scrolled-api.onrender.com/user/Ronald')
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            setUsers(data)   
+          })
+          
+      }    
+
+    useEffect(() => {
+        fetchUserData()
+
+    }, [])
+    
+    console.log(users)
+    
     
     const [page, setPage] = useState("login")
     const handlePageChange = (event) => {
@@ -98,6 +121,9 @@ export default function Login() {
     }
     return (
         <div>
+            {users && <p>
+                User data: {users._id}
+            </p>}
             <h3>
                 User: {currentUser.name}
             </h3>
@@ -142,6 +168,7 @@ export default function Login() {
                 <Vid levels = {topicLevels} /> 
 
             </div>}
+    
         </div>
     )
 } 
