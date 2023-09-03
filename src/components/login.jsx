@@ -55,25 +55,6 @@ function user_exist_checker(users_array, user_attempt) {
 
 export default function Login() {
     
-    const [users, setUsers] = useState([])
-
-    const fetchUserData = () => {
-        fetch('https://scrolled-api.onrender.com/user/Ronald')
-          .then(response => {
-            return response.json()
-          })
-          .then(data => {
-            setUsers(data)   
-          })
-          
-      }    
-
-    useEffect(() => {
-        fetchUserData()
-
-    }, [])
-    
-
     const [Napoleon1, setNapoleon1] = useState({questions: []})
     const [Napoleon2, setNapoleon2] = useState({questions: []})
 
@@ -109,12 +90,37 @@ export default function Login() {
 
 
 
-
-
-
-
+    const [username, setUsername] = useState()
+    const [password, setPassword] = useState()
     
     const [page, setPage] = useState("login")
+    const [token, setToken] = useState()
+    
+
+    console.log(username)
+    console.log(password)
+
+    useEffect(() => {
+        // POST request using fetch inside useEffect React hook
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user: `${username}`,
+                pwd: `${password}`
+            })
+        };
+        if (page == "login") {
+            fetch('https://scrolled-api.onrender.com/login', requestOptions)
+                .then(response => response.json())
+                .then(data => setToken(data))
+        }
+        
+    
+    // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    }, [username, password, page]);
+
+
     const handlePageChange = (event) => {
         setPage(event.target.value)
       }
@@ -128,41 +134,25 @@ export default function Login() {
         setInputs(values => ({...values, [name]: value}))
     }
   
+    
+
     // All code to handle submits for both login and signup here
     const handleSubmit = (event) => {
         
         event.preventDefault()
-        if (page == "login") {     
-            if (pass_checker(users_array, inputs.username, inputs.password) === "True") {
-                alert(`Welcome ${inputs.username}`)
-                const user_index = user_exist_checker(users_array, inputs.username)
-                setUser(users_array[user_index])
-                setPage("loggedIn")
+        setUsername(inputs.username)
+        setPassword(inputs.password)
 
-
-            } else {
-                alert(`Username and or password not correct.`)
-            }
-        } else if (page == "signup") {
-            const user_index = user_exist_checker(users_array, inputs.username)
-            if (user_index != -1) {
-                alert('User already exists')
-            } else {
-
-                // Carry out function to add user to database
-                // Also make sure password is not null etc.
-                alert(`Welcome ${inputs.username}`)
-                setUser(users_array[user_index])
-                setPage("loggedIn")
-            }
-        }
     }
     return (
         <div>
-            <h3>
-                User: {currentUser.name}
-            </h3>
-            {page != "loggedIn" && <div>  
+            {token && <h3>
+                User: {username}
+            </h3>}
+            {!token && <h3>
+                Nobody logged in
+            </h3>}
+            {!token && <div>  
                 <h4>
                     Would you like to login or signup?
                 </h4>
@@ -195,9 +185,9 @@ export default function Login() {
                     <input type="submit" />
                 </form>
             </div>}
-            {page=="loggedIn" && Napoleon1 && Napoleon2 && <div>
+            {token && Napoleon1 && Napoleon2 && <div>
 
-                <button onClick={() => {setPage("login"); setUser(userNone)}
+                <button onClick={() => {setPage("login"); setToken(); setUser(userNone)}
                 }>Logout</button>
 
                 <Vid levels = {topicLevels} data = {[Napoleon1, Napoleon2]} /> 
