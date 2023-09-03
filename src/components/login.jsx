@@ -73,8 +73,46 @@ export default function Login() {
 
     }, [])
     
-    console.log(users)
-    
+
+    const [Napoleon1, setNapoleon1] = useState({questions: []})
+    const [Napoleon2, setNapoleon2] = useState({questions: []})
+
+    const fetchNapoleon1 = () => {
+        fetch('https://scrolled-api.onrender.com/topics/Napoleon/1')
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            setNapoleon1(data) 
+        })
+    }   
+
+    useEffect(() => {
+        fetchNapoleon1()
+
+    }, [])
+
+    const fetchNapoleon2 = () => {
+        fetch('https://scrolled-api.onrender.com/topics/Napoleon/2')
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            setNapoleon2(data) 
+        })
+    }   
+
+    useEffect(() => {
+        fetchNapoleon2()
+
+    }, [])
+
+
+
+
+
+
+
     
     const [page, setPage] = useState("login")
     const handlePageChange = (event) => {
@@ -121,9 +159,6 @@ export default function Login() {
     }
     return (
         <div>
-            {users && <p>
-                User data: {users._id}
-            </p>}
             <h3>
                 User: {currentUser.name}
             </h3>
@@ -160,12 +195,12 @@ export default function Login() {
                     <input type="submit" />
                 </form>
             </div>}
-            {page=="loggedIn" && <div>
+            {page=="loggedIn" && Napoleon1 && Napoleon2 && <div>
 
                 <button onClick={() => {setPage("login"); setUser(userNone)}
                 }>Logout</button>
 
-                <Vid levels = {topicLevels} /> 
+                <Vid levels = {topicLevels} data = {[Napoleon1, Napoleon2]} /> 
 
             </div>}
     
