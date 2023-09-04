@@ -21,35 +21,8 @@ let user3 = new User("user3", "pass3", topicLevels)
 let user4 = new User("user4", "pass4", topicLevels)
 
 
-
-let userNone = new User("Nobody logged in", "no pass", 0)
-
 const users_array = [user1, user2, user3, user4]
 
-/*****************************************************************************/
-
-/* This code for testing purposes, to check user is correct */
-
-function pass_checker(users_array, user_attempt, pass_attempt) {
-    const username_array = users_array.map(x => x.name)
-    const password_array = users_array.map(x => x.pass)
-    const index = username_array.indexOf(user_attempt)
-    if (index !== -1) {
-        if (pass_attempt === password_array[index]) {
-            return "True"
-        } else {
-            return "False"
-        }
-    } else {
-        return "False"
-    }
-}
-
-function user_exist_checker(users_array, user_attempt) {
-    const username_array = users_array.map(x => x.name)
-    const index = username_array.indexOf(user_attempt)
-    return index
-}
 
 /*****************************************************************************/
 
@@ -100,6 +73,14 @@ export default function Login() {
     console.log(username)
     console.log(password)
 
+    function message(token) {
+        if (token) {
+            alert("Login successful")
+        } else {
+            alert("Login failed")
+        }
+    }
+
     useEffect(() => {
         // POST request using fetch inside useEffect React hook
         const requestOptions = {
@@ -110,12 +91,18 @@ export default function Login() {
                 pwd: `${password}`
             })
         };
-        if (page == "login") {
-            fetch('https://scrolled-api.onrender.com/login', requestOptions)
-                .then(response => response.json())
-                .then(data => setToken(data))
+        if (username) {
+            if (page == "login") {
+                fetch('https://scrolled-api.onrender.com/login', requestOptions)
+                    .then(response => response.json())
+                    .then(data => setToken(data))
+            } else if (page == "signup") {
+                fetch('https://scrolled-api.onrender.com/register', requestOptions)
+                    .then(response => response.json())
+                    .then(data => setToken(data))
+            }
+            
         }
-        
     
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
     }, [username, password, page]);
@@ -126,7 +113,6 @@ export default function Login() {
       }
 
     const [inputs, setInputs] = useState({})
-    const [currentUser, setUser] = useState(userNone)
   
     const handleChange = (event) => {
         const name = event.target.name
@@ -187,7 +173,8 @@ export default function Login() {
             </div>}
             {token && Napoleon1 && Napoleon2 && <div>
 
-                <button onClick={() => {setPage("login"); setToken(); setUser(userNone)}
+                <button onClick={() => {setPage("login"); setToken();
+                setUsername(); setPassword()}
                 }>Logout</button>
 
                 <Vid levels = {topicLevels} data = {[Napoleon1, Napoleon2]} /> 
