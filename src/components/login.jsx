@@ -13,15 +13,8 @@ class User {
     }
 }
 
-let topicLevels = { topic1: 2, topic2: 1, Napoleon: 1, NapoleonExtra: 1 }
+let topicLevels = { topic1: 2, topic2: 1, Napoleon: 1, Coding: 1 }
 
-let user1 = new User("user1", "pass1", topicLevels)
-let user2 = new User("user2", "pass2", topicLevels)
-let user3 = new User("user3", "pass3", topicLevels)
-let user4 = new User("user4", "pass4", topicLevels)
-
-
-const users_array = [user1, user2, user3, user4]
 
 
 /*****************************************************************************/
@@ -30,35 +23,26 @@ export default function Login() {
     
     const [Napoleon1, setNapoleon1] = useState({questions: []})
     const [Napoleon2, setNapoleon2] = useState({questions: []})
+    const [Coding1, setCoding1] = useState({questions: []})
+    const [Coding2, setCoding2] = useState({questions: []})
 
-    const fetchNapoleon1 = () => {
-        fetch('https://scrolled-api.onrender.com/topics/Napoleon/1')
+    const topicData = {Napoleon: [Napoleon1, Napoleon2], Coding: [Coding1, Coding2]}
+
+    const fetcher = (topicName, topicLevel, setter) => {
+        fetch(`https://scrolled-api.onrender.com/topics/${topicName}/${topicLevel}`)
         .then(response => {
             return response.json()
         })
         .then(data => {
-            setNapoleon1(data) 
+            setter(data) 
         })
     }   
 
     useEffect(() => {
-        fetchNapoleon1()
-
-    }, [])
-
-    const fetchNapoleon2 = () => {
-        fetch('https://scrolled-api.onrender.com/topics/Napoleon/2')
-        .then(response => {
-            return response.json()
-        })
-        .then(data => {
-            setNapoleon2(data) 
-        })
-    }   
-
-    useEffect(() => {
-        fetchNapoleon2()
-
+        fetcher('Napoleon', '1', setNapoleon1)
+        fetcher('Napoleon', '2', setNapoleon2)
+        fetcher('Coding', '1', setCoding1)
+        fetcher('Coding', '2', setCoding2)
     }, [])
 
 
@@ -69,15 +53,29 @@ export default function Login() {
     const [page, setPage] = useState("login")
     const [token, setToken] = useState()
     
+    async function getToken(requestOptions, type) {
+    
 
-    console.log(username)
-    console.log(password)
+        const res = await fetch(`https://scrolled-api.onrender.com/${type}`, requestOptions)
 
-    function message(token) {
-        if (token) {
-            alert("Login successful")
+        if (type == "login") {
+            if (res.status == 200) {
+                const data = await res.json()
+                setToken(data)
+                alert("Login successful!")
+            } else if (res.status == 401) {
+                alert("Login failed!")
+            }
         } else {
-            alert("Login failed")
+            if (res.status == 201) {
+                alert(`Signup successful as ${username}. Logging in now!`)
+                const newRes = await fetch("https://scrolled-api.onrender.com/login", requestOptions)
+                const newData = await newRes.json()
+                setToken(newData)
+                alert("Login succesful")
+            } else if (res.status == 409) {
+                alert('Username already exists, signup failed!')
+            }
         }
     }
 
@@ -91,26 +89,21 @@ export default function Login() {
                 pwd: `${password}`
             })
         };
-        if (username) {
+        if (username) { 
             if (page == "login") {
-                fetch('https://scrolled-api.onrender.com/login', requestOptions)
-                    .then(response => response.json())
-                    .then(data => setToken(data))
+                getToken(requestOptions, "login")
             } else if (page == "signup") {
-                fetch('https://scrolled-api.onrender.com/register', requestOptions)
-                    .then(response => response.json())
-                    .then(data => setToken(data))
-            }
-            
+                getToken(requestOptions, "register")
+            }           
         }
     
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    }, [username, password, page]);
+    }, [username, password]);
 
 
     const handlePageChange = (event) => {
         setPage(event.target.value)
-      }
+    }
 
     const [inputs, setInputs] = useState({})
   
@@ -120,7 +113,6 @@ export default function Login() {
         setInputs(values => ({...values, [name]: value}))
     }
   
-    
 
     // All code to handle submits for both login and signup here
     const handleSubmit = (event) => {
@@ -171,13 +163,13 @@ export default function Login() {
                     <input type="submit" />
                 </form>
             </div>}
-            {token && Napoleon1 && Napoleon2 && <div>
+            {token && Napoleon1 && Napoleon2 && Coding1 && Coding2 && <div>
 
                 <button onClick={() => {setPage("login"); setToken();
                 setUsername(); setPassword()}
                 }>Logout</button>
 
-                <Vid levels = {topicLevels} data = {[Napoleon1, Napoleon2]} /> 
+                <Vid levels = {topicLevels} data = {topicData} /> 
 
             </div>}
     
