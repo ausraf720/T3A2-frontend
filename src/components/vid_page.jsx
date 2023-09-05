@@ -71,40 +71,12 @@ function Vid(props) {
     
     
     const [levels, setLevels] = useState(props.levels)
-
-    const [levelData, setLevelData] = useState()
-
-    useEffect(() => {
-        // POST request using fetch inside useEffect React hook
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({})
-        };
-
-        fetch('https://scrolled-api.onrender.com/levelup/Ronald/geographyLevel', requestOptions)
-            .then(response => response.json())
-            .then(data => setLevelData(data))
-            
-            
-
-    
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    }, [levels]);
-
-    console.log(levelData)
-
-
-
     
     const topicObject = props.data
-    console.log(topicObject)
     
     const [num, setNum] = useState(1)
     const [topic, setTopic] = useState(topicObject.Coding)
     const name = topic[0].topicName
-
-    
 
 
     // const qNum = topic[levels[name]-1].questions.length
@@ -114,7 +86,6 @@ function Vid(props) {
 
 
     
-
     // const vidsNum = topic[levels[name]-1].videos.length
     const vidsNum = 5
 
@@ -123,6 +94,28 @@ function Vid(props) {
         setNum(goUp(num, vidsNum)) 
         setIndex(rng(qNum))
     }
+
+
+    async function manageLevelUp(requestOptions, user) {
+        console.log(user)
+        const res = await fetch(`https://scrolled-api.onrender.com/levelup/${user}`, requestOptions)
+        if (res) {
+            alert("Level up saved!")
+        }
+    }
+    useEffect(() => {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                geographyLevel: 1,
+                codingLevel: levels.Coding,
+                napoleonLevel: levels.Napoleon
+            })
+        }         
+        manageLevelUp(requestOptions, props.user)
+    }, [levels.Coding, levels.Napoleon]);
+
 
 
     if (num != 0) {

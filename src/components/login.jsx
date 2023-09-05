@@ -46,23 +46,28 @@ export default function Login() {
     }, [])
 
 
-
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
+
+    const [userStats, setUserStats] = useState()
+    console.log(userStats)
     
     const [page, setPage] = useState("login")
     const [token, setToken] = useState()
     
     async function getToken(requestOptions, type) {
-    
-
         const res = await fetch(`https://scrolled-api.onrender.com/${type}`, requestOptions)
 
         if (type == "login") {
             if (res.status == 200) {
                 const data = await res.json()
-                setToken(data)
+                const userData = data.foundUser.userStats
+
+                setUserStats({Napoleon: userData.napoleonLevel, Coding: userData.codingLevel})
+                setToken(data.accessToken)
+
                 alert("Login successful!")
+
             } else if (res.status == 401) {
                 alert("Login failed!")
             }
@@ -78,6 +83,7 @@ export default function Login() {
             }
         }
     }
+
 
     useEffect(() => {
         // POST request using fetch inside useEffect React hook
@@ -166,10 +172,10 @@ export default function Login() {
             {token && Napoleon1 && Napoleon2 && Coding1 && Coding2 && <div>
 
                 <button onClick={() => {setPage("login"); setToken();
-                setUsername(); setPassword()}
+                setUsername(); setPassword();}
                 }>Logout</button>
 
-                <Vid levels = {topicLevels} data = {topicData} /> 
+                <Vid levels = {userStats} data = {topicData} user = {username} /> 
 
             </div>}
     
