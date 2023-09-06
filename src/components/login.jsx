@@ -131,49 +131,45 @@ export default function Login() {
     }
     return (
         <div>
-            <div className="mainTitle">
-                <h1>
+            {!token && <div>
+                <h1 className="mainTitle">
                     Welcome to Scroll.Ed!
                 </h1>
-            </div>
-            <div className="mainBody">                
-                {!token && <h3>
-                    Nobody logged in
-                </h3>}
-                {!token && <div>  
-                    <h4>
-                        Would you like to login or signup?
-                    </h4>
-                    <form>
-                        <select value={page} onChange={handlePageChange}>
+            
+            <div className="mainBody" id="loginBody">                
+                 
+                    <h3>
+                    </h3>
+                    <form className="inputPrompt">
+                    Would you like to login or signup? {"  "}
+                        <select value={page} onChange={handlePageChange} className="inputSpace">
                             <option value="login">Login</option>
                             <option value="signup">Signup</option>
                         </select>
                     </form>
-                    <p>
-                        Currently trying to {page}.
-                    </p>
                     <form onSubmit={handleSubmit}>
-                        <label>Enter your username: 
-                        <input 
+                        <label className="inputPrompt">Enter your username: {"  "}
+                        <input className="inputSpace"
                             type="text" 
                             name="username" 
                             value={inputs.username || ""} 
                             onChange={handleChange}
                         />
                         </label>
-                        <label>Enter your password: 
-                        <input 
+                        <label className="inputPrompt">Enter your password: {"  "}
+                        <input className="inputSpace"
                             type="text" 
                             name="password" 
                             value={inputs.password || ""} 
                             onChange={handleChange}
                         />
                         </label>
-                        <input type="submit" />
+                        <input id="submitter" type="submit" />
                     </form>
+                
+                </div>
                 </div>}
-                {token && Napoleon1 && Napoleon2 && Coding1 && Coding2 && <div>
+                {token && Napoleon1 && Napoleon2 && Coding1 && Coding2 && <div className="mainBody">
                     
 
                     <Vid levels = {userStats} data = {topicData} user = {username} /> 
@@ -190,6 +186,6 @@ export default function Login() {
                 </div>}
             </div>
     
-        </div>
+        
     )
 } 

@@ -13,7 +13,7 @@ body {
     color: green;
     background-color: rgb(32, 32, 32);
     opacity: 90%;
-
+    font-size: 5vw;
     text-align: center;
     justify-content: center;
 }
@@ -23,8 +23,14 @@ body {
     justify-content: center;
     background-color: rgb(32, 32, 32);
     opacity: 90%;
+    display: block;
+    margin: 5vw;
+    padding: 1vw;
+    border-radius: 3vw;
     
 }
+
+/*********************************************************************/
 
 .infoSection {
     display: inline-block;
@@ -40,6 +46,52 @@ body {
     display: inline-block;
 }
 
+/*********************************************************************/
+
+#loginBody {
+    margin-left: 25vw;
+    margin-right: 25vw;
+    border-radius: 1vw;
+    font-size: 2vw;
+}
+
+
+.inputPrompt {
+    border: 1vw;
+    padding: 1vw;
+    display: block;
+    background-color: rgb(64, 64, 64);
+    margin: 1vw;
+    border-radius: 0.5vw;
+
+}
+
+.inputSpace {
+    font-size: 2vw;
+    background-color: rgb(192, 192, 192);
+    border-radius: 0.5vw;
+    border-color: black;
+    border: solid 0.25vw;
+}
+
+
+#submitter {
+    height: 5vw;
+    width: 20vw;
+    border-radius: 2vw;
+    background: transparent;
+    border: 0.5vw solid white;
+    font-size: 2vw;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+#submitter:hover {
+    height: 6vw;
+    width: 24vw;
+    font-size: 2.4vw;
+    background: rgb(64, 64, 64);
+}
 
 
 
@@ -78,13 +130,25 @@ body {
 
 /*********************************************************************/
 
+.qTitle {
+    animation: colorChange 2s infinite linear;
+    color: red;
+    font-size: 5vw;
+}
+
+@keyframes colorChange {
+    /* You could think of as "step 1" */
+    0% {color: red}
+    50% {color:cyan}
+    100% {color:red}
+}
+
+
 
 #buttonSection {
     display: flexbox;
     justify-content: center;
 }
-
-
 
 .qButton {
     height: 10vw;

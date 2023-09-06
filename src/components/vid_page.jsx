@@ -133,14 +133,14 @@ function Vid(props) {
                     </form>
                 </div>
                 {num != 0 && <div>
-                <p>
+                <h1>
                         {topic[levels[name]-1].videos[num-1].videoTitle}
-                </p>
+                </h1>
                 <div className="videoSection">
                     <span>
                         {num != 1 && <button className = "shifter" onClick={() => setNum(goDown(num, vidsNum))}>{"<<"}</button>}
                     </span>
-                    <iframe id="vid"
+                    <iframe id="vid" 
                         
                         src={topic[levels[name]-1].videos[num-1].link}>
                     </iframe>                 
@@ -150,7 +150,7 @@ function Vid(props) {
                     </div>
                 </div>}
                 {num == 0 && <div>
-                    <h1>QUESTION TIME!</h1>
+                    <p className="qTitle">QUESTION TIME!</p>
                     <h2>
                         {q.question}
                     </h2>
