@@ -10,8 +10,7 @@ body {
     margin: 1em;
     padding: 1em;
     position: relative;
-    font-family: 'monaco', 'arial';
-    color: yellowgreen;
+    color: green;
     background-color: rgb(32, 32, 32);
     opacity: 90%;
 
@@ -25,13 +24,6 @@ body {
     background-color: rgb(32, 32, 32);
     opacity: 90%;
     
-}
-
-.videoSection {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .infoSection {
@@ -48,18 +40,81 @@ body {
     display: inline-block;
 }
 
-.video {
-    display: inline-block;
-}
 
-.buttons {
-    display: inline-block;
+
+
+/*********************************************************************/
+
+.videoSection {
+
+    display: flex;
+    align-items: center;
     justify-content: center;
-    padding: 10px;
-    vertical-align: middle;
+}
+
+#vid {
+    display: inline-block;
+    width: 70vw;
+    height: 35vw;
 }
 
 
 
+.shifter {
+    height: 10vw;
+    width: 15vw;
+    background: transparent;
+    transition-duration: 0.5s;
+    border: 4vw;
+    font-size: 6vw;
+    color: white;
+}
+
+.shifter:hover {
+    font-size: 8vw;
+    color: yellow;
+}
+
+
+/*********************************************************************/
+
+
+#buttonSection {
+    display: flexbox;
+    justify-content: center;
+}
+
+
+
+.qButton {
+    height: 10vw;
+    width: 40vw;
+    border-radius: 2vw;
+    background: transparent;
+    border: 1vw solid;
+    font-size: 3vw;
+    transition-duration: 0.5s;
+}
+
+#button0 {
+    color: red;
+}
+#button1 {
+    color: cyan;
+}
+#button2 {
+    color: yellowgreen;
+}
+#button3 {
+    color: orange;
+}
+
+
+.qButton:hover {
+    background-color: white;
+    color: black;
+    height: 12vw;
+    width: 48vw;
+}
 
 /*********************************************************************/

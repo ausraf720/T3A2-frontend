@@ -138,14 +138,14 @@ function Vid(props) {
                 </p>
                 <div className="videoSection">
                     <span>
-                        {num != 1 && <button onClick={() => setNum(goDown(num, vidsNum))}>Go Back</button>}
+                        {num != 1 && <button className = "shifter" onClick={() => setNum(goDown(num, vidsNum))}>{"<<"}</button>}
                     </span>
-                    <iframe width="420" className = "video"
+                    <iframe id="vid"
                         
                         src={topic[levels[name]-1].videos[num-1].link}>
                     </iframe>                 
                     <span>
-                        <button onClick={() => setNum(goUp(num, vidsNum))}>Go Forward</button>
+                        <button className = "shifter" onClick={() => setNum(goUp(num, vidsNum))}>{">>"}</button>
                     </span>
                     </div>
                 </div>}
@@ -154,11 +154,11 @@ function Vid(props) {
                     <h2>
                         {q.question}
                     </h2>
-                    <div id="buttonSection">
-                        <button id="button0" onClick={() => answerHandler(q.options[0])}>{q.options[0]}</button>
-                        <button id="button1" onClick={() => answerHandler(q.options[1])}>{q.options[1]}</button>
-                        <button id="button2" onClick={() => answerHandler(q.options[2])}>{q.options[2]}</button>
-                        <button id="button3" onClick={() => answerHandler(q.options[3])}>{q.options[3]}</button>
+                    <div className="buttonSection">
+                        <button className="qButton" id="button0" onClick={() => answerHandler(q.options[0])}>{q.options[0]}</button>
+                        <button className="qButton" id="button1" onClick={() => answerHandler(q.options[1])}>{q.options[1]}</button>
+                        <button className="qButton" id="button2" onClick={() => answerHandler(q.options[2])}>{q.options[2]}</button>
+                        <button className="qButton" id="button3" onClick={() => answerHandler(q.options[3])}>{q.options[3]}</button>
                     </div>
                 
                 
