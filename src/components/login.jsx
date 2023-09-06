@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Vid from './vid_page'
+import "./styling.css"
 
 /*****************************************************************************/
 
@@ -104,7 +105,7 @@ export default function Login() {
         }
     
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    }, [username, password]);
+    }, [username, password, page]);
 
 
     const handlePageChange = (event) => {
@@ -130,54 +131,64 @@ export default function Login() {
     }
     return (
         <div>
-            {token && <h3>
-                User: {username}
-            </h3>}
-            {!token && <h3>
-                Nobody logged in
-            </h3>}
-            {!token && <div>  
-                <h4>
-                    Would you like to login or signup?
-                </h4>
-                <form>
-                    <select value={page} onChange={handlePageChange}>
-                        <option value="login">Login</option>
-                        <option value="signup">Signup</option>
-                    </select>
-                </form>
-                <p>
-                    Currently trying to {page}.
-                </p>
-                <form onSubmit={handleSubmit}>
-                    <label>Enter your username:
-                    <input 
-                        type="text" 
-                        name="username" 
-                        value={inputs.username || ""} 
-                        onChange={handleChange}
-                    />
-                    </label>
-                    <label>Enter your password:
-                    <input 
-                        type="text" 
-                        name="password" 
-                        value={inputs.password || ""} 
-                        onChange={handleChange}
-                    />
-                    </label>
-                    <input type="submit" />
-                </form>
-            </div>}
-            {token && Napoleon1 && Napoleon2 && Coding1 && Coding2 && <div>
+            <div className="mainTitle">
+                <h1>
+                    Welcome to Scroll.Ed!
+                </h1>
+            </div>
+            <div className="mainBody">                
+                {!token && <h3>
+                    Nobody logged in
+                </h3>}
+                {!token && <div>  
+                    <h4>
+                        Would you like to login or signup?
+                    </h4>
+                    <form>
+                        <select value={page} onChange={handlePageChange}>
+                            <option value="login">Login</option>
+                            <option value="signup">Signup</option>
+                        </select>
+                    </form>
+                    <p>
+                        Currently trying to {page}.
+                    </p>
+                    <form onSubmit={handleSubmit}>
+                        <label>Enter your username: 
+                        <input 
+                            type="text" 
+                            name="username" 
+                            value={inputs.username || ""} 
+                            onChange={handleChange}
+                        />
+                        </label>
+                        <label>Enter your password: 
+                        <input 
+                            type="text" 
+                            name="password" 
+                            value={inputs.password || ""} 
+                            onChange={handleChange}
+                        />
+                        </label>
+                        <input type="submit" />
+                    </form>
+                </div>}
+                {token && Napoleon1 && Napoleon2 && Coding1 && Coding2 && <div>
+                    
 
-                <button onClick={() => {setPage("login"); setToken();
-                setUsername(); setPassword();}
-                }>Logout</button>
+                    <Vid levels = {userStats} data = {topicData} user = {username} /> 
 
-                <Vid levels = {userStats} data = {topicData} user = {username} /> 
+                    <span className="infoSection">
+                        <p className="mainInfo">
+                            {username}
+                        </p>
+                        <button className="mainSelector" onClick={() => {setPage("login"); setToken();
+                        setUsername(); setPassword();}}>Logout</button>
+                        
+                    </span>
 
-            </div>}
+                </div>}
+            </div>
     
         </div>
     )

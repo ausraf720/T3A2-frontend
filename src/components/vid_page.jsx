@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 
 // Videos are of [1, 2, 3, 4, 5]
@@ -79,15 +79,15 @@ function Vid(props) {
     const name = topic[0].topicName
 
 
-    // const qNum = topic[levels[name]-1].questions.length
-    const qNum = 5
+    const qNum = topic[levels[name]-1].questions.length
+    // const qNum = 5
     const [qIndex, setIndex] = useState(rng(qNum))
     const q = topic[levels[name]-1].questions[qIndex]
 
 
     
-    // const vidsNum = topic[levels[name]-1].videos.length
-    const vidsNum = 5
+    const vidsNum = topic[levels[name]-1].videos.length
+    // const vidsNum = 5
 
     function answerHandler(option) {
         setLevels(questionHandler(q, option, levels, name, topic.length))
@@ -118,63 +118,56 @@ function Vid(props) {
 
 
 
-    if (num != 0) {
+    if (num > -3) {
         return (
             <div>
-                <div>
-                    
+                <div className="infoSection">
+                    <p className="mainInfo">
+                        {topic[0].topicName} level: {levels[name]}
+                    </p>                
+                    <form className="mainSelector">
+                        <select value={name} onChange={(event) => {const x = event.target.value; setTopic(topicObject[x]); setNum(1)}}>
+                            <option value="Napoleon">Napoleon</option>
+                            <option value="Coding">Coding</option>
+                        </select>
+                    </form>
                 </div>
-                <button onClick={() => setNum(goDown(num, vidsNum))}>Go Back</button>
-                <button onClick={() => setNum(goUp(num, vidsNum))}>Go Forward</button>
-                <h3>
-                    Current level for topic: {levels[name]}
-                </h3>
-                <h4>
-                    Current topic: {topic[0].topicName}
-                </h4>
-                
-                <div>
-                    Topics:
-                    <button onClick={() => {setTopic(topicObject.Napoleon); setNum(1)}}>Napoleon</button>
-                    <button onClick={() => {setTopic(topicObject.Coding); setNum(1)}}>Coding</button>
-                </div>
-                
-                <div>
-                    <p>
-                        Video name: {topic[levels[name]-1].videos[num-1].videoTitle}
-                    </p>
-                    <iframe width="420"
+                {num != 0 && <div>
+                <p>
+                        {topic[levels[name]-1].videos[num-1].videoTitle}
+                </p>
+                <div className="videoSection">
+                    <span>
+                        {num != 1 && <button onClick={() => setNum(goDown(num, vidsNum))}>Go Back</button>}
+                    </span>
+                    <iframe width="420" className = "video"
                         
                         src={topic[levels[name]-1].videos[num-1].link}>
-                    </iframe>
-                </div>
-            </div>
-        )
-    } else {
-        return (
-            <div>
-
-                <h1>QUESTION TIME!</h1>
-                <button onClick={() => setNum(goDown(num, vidsNum))}>Go Back</button>
-                <button onClick={() => setNum(goUp(num, vidsNum))}>Go Forward</button>
-                
-                <div>
-                    <h3>
-                        Current level for topic: {levels[name]}
-                    </h3>
+                    </iframe>                 
+                    <span>
+                        <button onClick={() => setNum(goUp(num, vidsNum))}>Go Forward</button>
+                    </span>
+                    </div>
+                </div>}
+                {num == 0 && <div>
+                    <h1>QUESTION TIME!</h1>
                     <h2>
                         {q.question}
                     </h2>
-                    <button onClick={() => answerHandler(q.options[0])}>{q.options[0]}</button>
-                    <button onClick={() => answerHandler(q.options[1])}>{q.options[1]}</button>
-                    <button onClick={() => answerHandler(q.options[2])}>{q.options[2]}</button>
-                    <button onClick={() => answerHandler(q.options[3])}>{q.options[3]}</button>
-
-                </div>
-            
+                    <div id="buttonSection">
+                        <button id="button0" onClick={() => answerHandler(q.options[0])}>{q.options[0]}</button>
+                        <button id="button1" onClick={() => answerHandler(q.options[1])}>{q.options[1]}</button>
+                        <button id="button2" onClick={() => answerHandler(q.options[2])}>{q.options[2]}</button>
+                        <button id="button3" onClick={() => answerHandler(q.options[3])}>{q.options[3]}</button>
+                    </div>
+                
+                
+                
+                </div>}
+                
             </div>
         )
-    }
+    } 
     
 }
 

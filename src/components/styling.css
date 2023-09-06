@@ -1,0 +1,65 @@
+body {
+    background-size: cover;
+    background-position: center;
+    background-color: black;
+    color: white;
+}
+
+
+.mainTitle {
+    margin: 1em;
+    padding: 1em;
+    position: relative;
+    font-family: 'monaco', 'arial';
+    color: yellowgreen;
+    background-color: rgb(32, 32, 32);
+    opacity: 90%;
+
+    text-align: center;
+    justify-content: center;
+}
+
+.mainBody {
+    text-align: center;
+    justify-content: center;
+    background-color: rgb(32, 32, 32);
+    opacity: 90%;
+    
+}
+
+.videoSection {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoSection {
+    display: inline-block;
+}
+
+.mainSelector {
+    border: 10px;
+    display: inline-block;
+}
+
+.mainInfo {
+    border: 10px;
+    display: inline-block;
+}
+
+.video {
+    display: inline-block;
+}
+
+.buttons {
+    display: inline-block;
+    justify-content: center;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+
+
+
+/*********************************************************************/
