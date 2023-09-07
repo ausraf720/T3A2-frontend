@@ -5,32 +5,6 @@ import React, { useState, useEffect } from 'react'
 // Question is 0
 
 
-class Question {
-    constructor(question, answer, options) {
-        this.question = question;
-        this.answer = answer;
-        this.options = options;
-    }
-}
-
-class Topic {
-    constructor(questions, videos, topicName, topicLevel) {
-        this.questions = questions;
-        this.videos = videos;
-        this.topicName = topicName;
-        this.topicLevel = topicLevel;
-    }
-}
-
-class Video {
-    constructor(link, videoTitle) {
-        this.link = link;
-        this.videoTitle = videoTitle;
-    }
-}
-
-
-
 function goDown(num, maxNum) {
     if (num == 0) {
         return maxNum

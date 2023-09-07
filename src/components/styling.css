@@ -212,7 +212,7 @@ body {
 }
 
 .qButton {
-    height: 8vw;
+    height: 16vw;
     width: 32vw;
     border-radius: 2vw;
     background: transparent;
@@ -238,7 +238,7 @@ body {
 .qButton:hover {
     background-color: white;
     color: black;
-    height: 9.6vw;
+    height: 19.2vw;
     width: 38.4vw;
 }
 
@@ -246,24 +246,24 @@ body {
 
 @media screen and (max-width: 1000px) {
     .qButton {
-        height: 10vw;
+        height: 20vw;
         width: 40vw;
         font-size: 3vw;
     }
     .qButton:hover {
-        height: 12vw;
+        height:24vw;
         width: 48vw;
     }
 }
 
 @media screen and (max-width: 600px) {
     .qButton {
-        height: 12.5vw;
+        height: 25vw;
         width: 75vw;
         font-size: 4vw;
     }
     .qButton:hover {
-        height: 15vw;
+        height: 30vw;
         width: 90vw;
     }
 

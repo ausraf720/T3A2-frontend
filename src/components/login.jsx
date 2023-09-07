@@ -2,48 +2,44 @@ import React, { useState, useEffect } from 'react';
 import Vid from './vid_page'
 import "./styling.css"
 
-/*****************************************************************************/
 
-/* This code is for making fake users, needs to be replaced by database entries*/
-
-class User {
-    constructor(name, pass, levels) {
-      this.name = name
-      this.pass = pass
-      this.levels = levels
-    }
-}
-
-let topicLevels = { topic1: 2, topic2: 1, Napoleon: 1, Coding: 1 }
-
-
+const topicMain = {Coding: 3, Napoleon: 3}
 
 /*****************************************************************************/
 
 export default function Login() {
-    
+
+
     const [Napoleon1, setNapoleon1] = useState({questions: []})
     const [Napoleon2, setNapoleon2] = useState({questions: []})
+    const [Napoleon3, setNapoleon3] = useState({questions: []})
     const [Coding1, setCoding1] = useState({questions: []})
     const [Coding2, setCoding2] = useState({questions: []})
+    const [Coding3, setCoding3] = useState({questions: []})
 
-    const topicData = {Napoleon: [Napoleon1, Napoleon2], Coding: [Coding1, Coding2]}
+    const topicData = {Napoleon: [Napoleon1, Napoleon2, Napoleon3], Coding: [Coding1, Coding2, Coding3]}
+    const [token, setToken] = useState()
 
-    const fetcher = (topicName, topicLevel, setter) => {
-        fetch(`https://scrolled-api.onrender.com/topics/${topicName}/${topicLevel}`)
-        .then(response => {
-            return response.json()
-        })
-        .then(data => {
-            setter(data) 
-        })
+    const [checkSum, setCheckSum] = useState(0)
+    console.log(checkSum)
+
+    async function fetcher(topicName, topicLevel, setter) {
+        const res = await fetch(`https://scrolled-api.onrender.com/topics/${topicName}/${topicLevel}`)
+        if (res) {
+            setCheckSum(prevSum => prevSum + 1)
+            const data = await res.json() 
+            setter(data)
+        }
+         
     }   
 
     useEffect(() => {
         fetcher('Napoleon', '1', setNapoleon1)
         fetcher('Napoleon', '2', setNapoleon2)
+        fetcher('Napoleon', '3', setNapoleon3)
         fetcher('Coding', '1', setCoding1)
         fetcher('Coding', '2', setCoding2)
+        fetcher('Coding', '3', setCoding3)
     }, [])
 
 
@@ -51,10 +47,9 @@ export default function Login() {
     const [password, setPassword] = useState()
 
     const [userStats, setUserStats] = useState()
-    console.log(userStats)
     
     const [page, setPage] = useState("login")
-    const [token, setToken] = useState()
+    
     
     async function getToken(requestOptions, type) {
         const res = await fetch(`https://scrolled-api.onrender.com/${type}`, requestOptions)
@@ -175,7 +170,7 @@ export default function Login() {
                 
                 </div>
                 </div>}
-                {token && Napoleon1 && Napoleon2 && Coding1 && Coding2 && <div className="mainBody">
+                {token && checkSum == 6 * 2 && <div className="mainBody">
                     
 
                     <Vid levels = {userStats} data = {topicData} user = {username} userToken = {token} /> 
