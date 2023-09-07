@@ -7,40 +7,46 @@ const topicMain = {Coding: 3, Napoleon: 3}
 
 /*****************************************************************************/
 
+let sum = 0
+let arraysObject = {}
+for (const item in topicMain) {
+    const num = topicMain[item]
+    sum += num
+    arraysObject[item] = [...Array(num).keys()].map(x => String(x+1))
+}
+
+/*****************************************************************************/
+
 export default function Login() {
 
 
-    const [Napoleon1, setNapoleon1] = useState({questions: []})
-    const [Napoleon2, setNapoleon2] = useState({questions: []})
-    const [Napoleon3, setNapoleon3] = useState({questions: []})
-    const [Coding1, setCoding1] = useState({questions: []})
-    const [Coding2, setCoding2] = useState({questions: []})
-    const [Coding3, setCoding3] = useState({questions: []})
-
-    const topicData = {Napoleon: [Napoleon1, Napoleon2, Napoleon3], Coding: [Coding1, Coding2, Coding3]}
+    const [n_topicData, setData] = useState({})
     const [token, setToken] = useState()
-
     const [checkSum, setCheckSum] = useState(0)
-    console.log(checkSum)
 
-    async function fetcher(topicName, topicLevel, setter) {
-        const res = await fetch(`https://scrolled-api.onrender.com/topics/${topicName}/${topicLevel}`)
-        if (res) {
-            setCheckSum(prevSum => prevSum + 1)
-            const data = await res.json() 
-            setter(data)
+    async function newFetcher(topicMain) {
+
+        let sum = 0
+        let newObject = {}
+        for (const key of Object.keys(topicMain)) {
+ 
+            let newArray = []
+            for (const index of topicMain.Napoleon) {
+                let res = await fetch(`https://scrolled-api.onrender.com/topics/${key}/${index}`)
+                let data = await res.json()
+                newArray.push(data)
+                sum++
+            }
+            newObject[key] = newArray
         }
-         
-    }   
-
+        setData(newObject)
+        setCheckSum(sum)
+    }
     useEffect(() => {
-        fetcher('Napoleon', '1', setNapoleon1)
-        fetcher('Napoleon', '2', setNapoleon2)
-        fetcher('Napoleon', '3', setNapoleon3)
-        fetcher('Coding', '1', setCoding1)
-        fetcher('Coding', '2', setCoding2)
-        fetcher('Coding', '3', setCoding3)
+        newFetcher(arraysObject)
     }, [])
+
+/*****************************************************************************/
 
 
     const [username, setUsername] = useState()
@@ -170,10 +176,10 @@ export default function Login() {
                 
                 </div>
                 </div>}
-                {token && checkSum == 6 * 2 && <div className="mainBody">
+                {token && checkSum == sum && <div className="mainBody">
                     
 
-                    <Vid levels = {userStats} data = {topicData} user = {username} userToken = {token} /> 
+                    <Vid levels = {userStats} data = {n_topicData} user = {username} userToken = {token} /> 
 
                     <div className="inputPrompt">
                         <span className="descriptor">
