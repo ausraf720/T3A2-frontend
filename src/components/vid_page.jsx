@@ -78,6 +78,8 @@ function Vid(props) {
     const [topic, setTopic] = useState(topicObject.Coding)
     const name = topic[0].topicName
 
+    const token = props.userToken
+
 
     const qNum = topic[levels[name]-1].questions.length
     // const qNum = 5
@@ -96,17 +98,19 @@ function Vid(props) {
     }
 
 
+    const [isMount, setIsMount] = useState(true)
     async function manageLevelUp(requestOptions, user) {
-        console.log(user)
         const res = await fetch(`https://scrolled-api.onrender.com/levelup/${user}`, requestOptions)
-        if (res) {
+        if (res && !isMount) {
             alert("Level up saved!")
+        } else if (res) {
+            setIsMount(false)
         }
     }
     useEffect(() => {
         const requestOptions = {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({
                 geographyLevel: 1,
                 codingLevel: levels.Coding,
@@ -114,19 +118,19 @@ function Vid(props) {
             })
         }         
         manageLevelUp(requestOptions, props.user)
-    }, [levels.Coding, levels.Napoleon]);
+    }, [levels.Napoleon, levels.Coding]);
 
 
 
     if (num > -3) {
         return (
             <div>
-                <div className="infoSection">
-                    <p className="mainInfo">
+                <div className="inputPrompt">
+                    <span className="descriptor">
                         {topic[0].topicName} level: {levels[name]}
-                    </p>                
-                    <form className="mainSelector">
-                        <select value={name} onChange={(event) => {const x = event.target.value; setTopic(topicObject[x]); setNum(1)}}>
+                    </span>                
+                    <form id="topicForm">
+                        <select className="inputSpace" value={name} onChange={(event) => {const x = event.target.value; setTopic(topicObject[x]); setNum(1)}}>
                             <option value="Napoleon">Napoleon</option>
                             <option value="Coding">Coding</option>
                         </select>

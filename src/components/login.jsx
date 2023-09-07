@@ -62,9 +62,10 @@ export default function Login() {
         if (type == "login") {
             if (res.status == 200) {
                 const data = await res.json()
-                const userData = data.foundUser.userStats
 
+                const userData = data.foundUser.userStats
                 setUserStats({Napoleon: userData.napoleonLevel, Coding: userData.codingLevel})
+
                 setToken(data.accessToken)
 
                 alert("Login successful!")
@@ -77,7 +78,12 @@ export default function Login() {
                 alert(`Signup successful as ${username}. Logging in now!`)
                 const newRes = await fetch("https://scrolled-api.onrender.com/login", requestOptions)
                 const newData = await newRes.json()
-                setToken(newData)
+                
+                const userData = newData.foundUser.userStats
+                setUserStats({Napoleon: userData.napoleonLevel, Coding: userData.codingLevel})
+                
+                setToken(newData.accessToken)
+
                 alert("Login succesful")
             } else if (res.status == 409) {
                 alert('Username already exists, signup failed!')
@@ -172,16 +178,16 @@ export default function Login() {
                 {token && Napoleon1 && Napoleon2 && Coding1 && Coding2 && <div className="mainBody">
                     
 
-                    <Vid levels = {userStats} data = {topicData} user = {username} /> 
+                    <Vid levels = {userStats} data = {topicData} user = {username} userToken = {token} /> 
 
-                    <span className="infoSection">
-                        <p className="mainInfo">
+                    <div className="inputPrompt">
+                        <span className="descriptor">
                             {username}
-                        </p>
-                        <button className="mainSelector" onClick={() => {setPage("login"); setToken();
-                        setUsername(); setPassword();}}>Logout</button>
+                        </span>
+                        <button className="inputSpace" onClick={() => {setPage("login"); setToken();
+                        setUsername(""); setPassword("");}}>Logout</button>
                         
-                    </span>
+                    </div>
 
                 </div>}
             </div>

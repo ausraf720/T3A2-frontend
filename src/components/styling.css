@@ -32,19 +32,7 @@ body {
 
 /*********************************************************************/
 
-.infoSection {
-    display: inline-block;
-}
 
-.mainSelector {
-    border: 10px;
-    display: inline-block;
-}
-
-.mainInfo {
-    border: 10px;
-    display: inline-block;
-}
 
 /*********************************************************************/
 
@@ -54,7 +42,6 @@ body {
     border-radius: 1vw;
     font-size: 2vw;
 }
-
 
 .inputPrompt {
     border: 1vw;
@@ -72,6 +59,10 @@ body {
     border-radius: 0.5vw;
     border-color: black;
     border: solid 0.25vw;
+}
+
+.inputSpace:hover {
+    background-color: white;
 }
 
 
@@ -93,7 +84,16 @@ body {
     background: rgb(64, 64, 64);
 }
 
+#topicForm {
+    display: inline-block;
+}
 
+/*********************************************************************/
+
+.descriptor {
+    font-size: 2vw;
+    margin: 1vw;
+}
 
 /*********************************************************************/
 
