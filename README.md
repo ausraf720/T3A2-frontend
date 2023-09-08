@@ -5,7 +5,62 @@
 - Zak Mohamed
 - Benjamin Phillips
 
-## R1 - Description of web application
+## Important links
+
+### [Deployed website](https://t3-a2-frontend-azm4-6mbobk88m-ausraf720.vercel.app/)
+
+#### Github links
+
+[Front-end repository](https://github.com/ausraf720/T3A2-frontend)
+
+[Back-end repository](https://github.com/BenPhillips-21/T3A2-B/)
+
+#### Project Management links
+
+[Project management and Trello board screenshots](#project-management-table)
+
+[Trello board link](https://trello.com/b/6VMUl8Tx/t3a2-full-stack-app)
+
+[Manual Testing for production site](#manual-testing)
+
+## INSTRUCTIONS
+
+1. Firstly, when starting the website, it can take some time to load. Wait at least 2 minutes.
+
+![Instructions 1](./docs/Instructions/Instructions%201.png)
+
+2. Then you'll be greeted with the login/signup page, where you can choose to login or signup and enter your details.
+
+![Instructions 2](./docs/Instructions/Instructions%202.png)
+
+3. If you sign up with a new user as seen below, you'll automatically be logged in with that user.
+
+![Instructions 3](./docs/Instructions/Instructions%203.png)
+
+![Instructions 4](./docs/Instructions/Instructions%204.png)
+
+![Instructions 5](./docs/Instructions/Instructions%205.png)
+
+4. Then you'll be greeted with the main page. Here you can choose between topics, and use the arrows to go between videos. On the bottom of the page is a logout option that takes you back to the login/signup screen.
+
+![Instructions 6](./docs/Instructions/Instructions%206.png)
+
+![Instructions 7](./docs/Instructions/Instructions%207.png)
+
+5. Finally you'll reach the questions screen after clicking on the right arrow enough times. If you get the question right on that topic, you level up for that topic and the content gets more difficult. Your level will be saved, so if you log out and log back in again, it will be the same as before.
+
+![Instructions 8](./docs/Instructions/Instructions%208.png)
+
+6. If you get the question wrong, you won't level up.
+
+![Instructions 9](./docs/Instructions/Instructions%209.png)
+
+
+
+
+
+
+## Description of web application
 
 ### Purpose
 
@@ -36,18 +91,17 @@ This software will feature the MERN stack, and also utilise links to Youtube sho
 
 **Node** will be essential for doing calculations regarding each user, and also randomly picking out videos as well as questions for the videos. It will be used to determine what videos from what topics should be displayed, based on the questions the user was able to get correct.
 
-## R2 - Dataflow Diagrams
+## Dataflow Diagrams
 
 ![Dataflow 1](./docs/Diagrams/Dataflow%201.png)
 
 ![Dataflow 2](./docs/Diagrams/Dataflow%202.png)
 
-## R3 - Application Architecture Diagram
-
+## Application Architecture Diagram
 
 ![App Architecture](./docs/Diagrams/App%20Architecture.png)
 
-## R4 - User Stories
+## User Stories
 
 ![User Story 1](./docs/User%20Stories/User%20Story%201.png)
 
@@ -55,7 +109,7 @@ This software will feature the MERN stack, and also utilise links to Youtube sho
 
 ![User Story 3](./docs/User%20Stories/User%20Story%203.png)
 
-## R5 - Wireframes
+## Wireframes
 
 ![Desktop Wireframes](./docs/Wireframes/Desktop%20Wireframes.png)
 
@@ -63,8 +117,13 @@ This software will feature the MERN stack, and also utilise links to Youtube sho
 
 ![Mobile Wireframes](./docs/Wireframes/Mobile%20Wireframes.png)
 
-## R6 - Trello Screenshots
+## Project Management Table
 
+![Table](./docs/pmtable.png)
+
+## Trello Screenshots
+
+Complete part A of assignment
 ![Trello Screenshot 1](./docs/Trello%20Screenshots/Trello%201.png)
 
 ![Trello Screenshot 2](./docs/Trello%20Screenshots/Trello%202.png)
@@ -73,4 +132,35 @@ This software will feature the MERN stack, and also utilise links to Youtube sho
 
 ![Trello Screenshot 4](./docs/Trello%20Screenshots/Trello%204.png)
 
+Assign tasks, make project management schedule, then complete part B
 ![Trello Screenshot 5](./docs/Trello%20Screenshots/Trello%205.png)
+
+![Trello Screenshot 6](./docs/Trello%20Screenshots/Trello%206.png)
+
+![Trello Screenshot 7](./docs/Trello%20Screenshots/Trello%207.png)
+
+![Trello Screenshot 8](./docs/Trello%20Screenshots/Trello%208.png)
+
+![Trello Screenshot 9](./docs/Trello%20Screenshots/Trello%209.png)
+
+![Trello Screenshot 10](./docs/Trello%20Screenshots/Trello%2010.png)
+
+![Trello Screenshot 11](./docs/Trello%20Screenshots/Trello%2011.png)
+
+Finish up with front-end and back-end functionality, then focus on connecting them together
+![Trello Screenshot 12](./docs/Trello%20Screenshots/Trello%2012.png)
+
+![Trello Screenshot 13](./docs/Trello%20Screenshots/Trello%2013.png)
+
+Do styling, fix any existing issues, and conduct tests
+![Trello Screenshot 14](./docs/Trello%20Screenshots/Trello%2014.png)
+
+![Trello Screenshot 15](./docs/Trello%20Screenshots/Trello%2015.png)
+
+![Trello Screenshot 16](./docs/Trello%20Screenshots/Trello%2016.png)
+
+## Manual testing
+
+![Manual Testing 1](./docs/ScrollEd_Manual_Testing/ScrollEd_Manual_Testing_1.jpg)
+
+![Manual Testing 2](./docs/ScrollEd_Manual_Testing/ScrollEd_Manual_Testing_2.jpg)
