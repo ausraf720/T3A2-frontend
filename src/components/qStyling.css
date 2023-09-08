@@ -1,24 +1,23 @@
 
+/* styling for 'question time' title */
 .qTitle {
     animation: colorChange 2s infinite linear;
     color: red;
     font-size: 5vw;
 }
 
+/* alternates between colours to be more visually interesting */
 @keyframes colorChange {
-    /* You could think of as "step 1" */
     0% {color: red}
     50% {color:cyan}
     100% {color:red}
 }
 
-
-
+/* styling for button options for question */
 #buttonSection {
     align-items: center;
     justify-content: center;
 }
-
 .qButton {
     height: 16vw;
     width: 32vw;
@@ -28,7 +27,14 @@
     font-size: 2.4vw;
     transition-duration: 0.5s;
 }
+.qButton:hover {
+    background-color: white;
+    color: black;
+    height: 19.2vw;
+    width: 38.4vw;
+}
 
+/* giving different colours for each button */
 #button0 {
     color: red;
 }
@@ -42,15 +48,12 @@
     color: orange;
 }
 
-
-.qButton:hover {
-    background-color: white;
-    color: black;
-    height: 19.2vw;
-    width: 38.4vw;
-}
-
 /*********************************************************************/
+
+/* media queries to alter styling, 
+such that displays take up proportionally more space on screen,
+for smaller screen sizes
+*/
 
 @media screen and (max-width: 1000px) {
     .qButton {
@@ -63,7 +66,6 @@
         width: 48vw;
     }
 }
-
 @media screen and (max-width: 600px) {
     .qButton {
         height: 25vw;
@@ -74,7 +76,6 @@
         height: 30vw;
         width: 90vw;
     }
-
 }
 
 /*********************************************************************/

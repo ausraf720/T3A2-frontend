@@ -1,4 +1,4 @@
-
+/* styling for section where video pops up */
 .videoSection {
     display: flex;
     align-content: center;
@@ -6,13 +6,14 @@
     justify-content: center;
 }
 
+/* styling of actual video */
 #vid {
     display: inline-block;
     width: 60vw;
     height: 30vw;
 }
 
-
+/* styling for arrows that allow for shifting between videos */
 .shifter {
     height: 8vw;
     width: 12vw;
@@ -22,13 +23,17 @@
     font-size: 6vw;
     color: white;
 }
-
 .shifter:hover {
     font-size: 8vw;
     color: yellow;
 }
 
 /*********************************************************************/
+
+/* media queries to alter styling, 
+such that displays take up proportionally more space on screen,
+for smaller screen sizes
+*/
 
 @media screen and (max-width: 600px) {
     .videoSection {
@@ -43,6 +48,5 @@
         width: 15vw;
     }
 }
-
 
 /*********************************************************************/
