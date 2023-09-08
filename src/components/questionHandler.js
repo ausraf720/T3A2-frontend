@@ -1,4 +1,3 @@
-
 export default function questionHandler(q, selection, levels, name, maxLevel) {
     if (selection == q.answer) {
         alert("Answer was correct!")
