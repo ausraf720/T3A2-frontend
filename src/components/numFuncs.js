@@ -18,7 +18,7 @@ num is current video num, and maxNum is max number of videos for that level of t
 */
 function goUp(num, maxNum) {
 
-    // if reached maxNum (last video), move on to question (which is 0)
+    // if reached maxNum (last video), move on to question (which is index 0)
     if (num == maxNum) {
         return 0
 

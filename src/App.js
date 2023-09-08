@@ -1,4 +1,3 @@
-import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import Login from './components/login'
@@ -12,7 +11,6 @@ Their values are the number of levels for that given topic,
 This can be expanded depending on what data is available,
 Levels per topic don't have to be same as each other
 */
-
 const topicMain = {Coding: 3, Napoleon: 3}
 
 // This sum used to check if all data loaded
@@ -70,7 +68,6 @@ function App() {
     useEffect(() => {
         fetcher(arraysObject)
     }, [])
-
 
     return (
         <BrowserRouter>

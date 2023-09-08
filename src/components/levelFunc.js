@@ -1,6 +1,6 @@
 
 /* this function is for converting front-end level to back-end level object and vice versa,
-object is object which level data is obtained from, topics is list of topics,
+object is an object which level data is obtained from, topics is list of topics,
 reverse is a bool indicated if transferring from front-end to back-end or other way around
 */
 export default function levelFunc(object, topics, reverse) {

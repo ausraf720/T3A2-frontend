@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Vid from './vid_page'
 import levelFunc from './levelFunc'
 
-
-
 // Main feature of function is controlliing login and signup
 function Login(props) {
 
@@ -89,7 +87,7 @@ function Login(props) {
             }           
         }
     
-    // dependency array means effect updates when new username/password inputted, or page mode changed)
+    // dependency array means hook updates when new username/password inputted, or page mode changed
     }, [username, password, page]);
 
     // simple arrow function to update page mode between login or signup
@@ -186,8 +184,6 @@ function Login(props) {
 
             </div>}
         </div>
-    
-        
     )
 } 
 

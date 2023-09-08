@@ -1,4 +1,4 @@
-import React, { useState, useEffect, version } from 'react'
+import React, { useState, useEffect } from 'react'
 import levelFunc from './levelFunc'
 import questionHandler from './questionHandler'
 import { goUp, goDown, rng } from './numFuncs'
@@ -63,7 +63,7 @@ function Vid(props) {
     async function manageLevelUp(requestOptions, user) {
         const res = await fetch(`https://scrolled-api.onrender.com/levelup/${user}`, requestOptions)
 
-        // conditional to only alert user level up happens not on mount
+        // conditional to only alert user level-up happens not on mount
         if (res && !isMount) {
             alert("Level up saved!")
 

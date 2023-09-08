@@ -1,5 +1,5 @@
 /* this function alerts user if answer is right/wrong,
-also updates level for topic is user is right,
+also updates level for topic if user is right,
 q is actual question object, selection is chosen option, 
 levels is user's levels, name is current topic, maxLevel is max possible level for topic
 */
