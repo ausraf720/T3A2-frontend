@@ -1,45 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import levelFunc from './levelFunc'
+import questionHandler from './questionHandler'
+import { goUp, goDown, rng } from './numFuncs'
+import './qStyling.css'
+import './vidStyling.css'
 
 
 // Videos are of [1, 2, 3, 4, 5]
 // Question is 0
 
-
-function goDown(num, maxNum) {
-    if (num == 0) {
-        return maxNum
-    } else {
-        return num - 1
-    }
-}
-function goUp(num, maxNum) {
-    if (num == maxNum) {
-        return 0
-    } else {
-        return num + 1
-    }
-}
-
-function questionHandler(q, selection, levels, name, maxLevel) {
-    if (selection == q.answer) {
-        alert("Answer was correct!")
-        if (levels[name] == maxLevel) {
-            alert("Max level reached!")
-            return levels
-        } else {
-            levels[name] += 1
-            return levels
-        }
-        
-    } else {
-        alert("Answer was wrong!")
-        return levels
-    }
-}
-
-function rng(max) {
-    return Math.floor(Math.random() * max);
-  }
 
 function Vid(props) {
     
@@ -47,6 +16,7 @@ function Vid(props) {
     const [levels, setLevels] = useState(props.levels)
     
     const topicObject = props.data
+    const topicArray = Object.keys(topicObject)
     
     const [num, setNum] = useState(1)
     const [topic, setTopic] = useState(topicObject.Coding)
@@ -56,14 +26,14 @@ function Vid(props) {
 
 
     const qNum = topic[levels[name]-1].questions.length
-    // const qNum = 5
+    
     const [qIndex, setIndex] = useState(rng(qNum))
     const q = topic[levels[name]-1].questions[qIndex]
 
 
     
     const vidsNum = topic[levels[name]-1].videos.length
-    // const vidsNum = 5
+    
 
     function answerHandler(option) {
         setLevels(questionHandler(q, option, levels, name, topic.length))
@@ -85,17 +55,12 @@ function Vid(props) {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-            body: JSON.stringify({
-                geographyLevel: 1,
-                codingLevel: levels.Coding,
-                napoleonLevel: levels.Napoleon
-            })
+            body: JSON.stringify(levelFunc(levels, topicArray, true))
         }         
         manageLevelUp(requestOptions, props.user)
     }, [levels.Napoleon, levels.Coding]);
 
-
-
+    
     if (num > -3) {
         return (
             <div>
@@ -105,8 +70,9 @@ function Vid(props) {
                     </span>                
                     <form id="topicForm">
                         <select className="inputSpace" value={name} onChange={(event) => {const x = event.target.value; setTopic(topicObject[x]); setNum(1)}}>
-                            <option value="Napoleon">Napoleon</option>
-                            <option value="Coding">Coding</option>
+
+
+                            {topicArray.map((index) => <option value={index} >{index}</option>)}
                         </select>
                     </form>
                 </div>
@@ -138,8 +104,6 @@ function Vid(props) {
                         <button className="qButton" id="button2" onClick={() => answerHandler(q.options[2])}>{q.options[2]}</button>
                         <button className="qButton" id="button3" onClick={() => answerHandler(q.options[3])}>{q.options[3]}</button>
                     </div>
-                
-                
                 
                 </div>}
                 

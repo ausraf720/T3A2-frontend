@@ -1,56 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Vid from './vid_page'
-import "./styling.css"
+import levelFunc from './levelFunc'
 
 
-const topicMain = {Coding: 3, Napoleon: 3}
-
-/*****************************************************************************/
-
-let sum = 0
-let arraysObject = {}
-for (const item in topicMain) {
-    const num = topicMain[item]
-    sum += num
-    arraysObject[item] = [...Array(num).keys()].map(x => String(x+1))
-}
-
-/*****************************************************************************/
-
-export default function Login() {
 
 
-    const [n_topicData, setData] = useState({})
-    const [token, setToken] = useState()
-    const [checkSum, setCheckSum] = useState(0)
+function Login(props) {
 
-    async function newFetcher(topicMain) {
 
-        let sum = 0
-        let newObject = {}
-        for (const key of Object.keys(topicMain)) {
- 
-            let newArray = []
-            for (const index of topicMain.Napoleon) {
-                let res = await fetch(`https://scrolled-api.onrender.com/topics/${key}/${index}`)
-                let data = await res.json()
-                newArray.push(data)
-                sum++
-            }
-            newObject[key] = newArray
-        }
-        setData(newObject)
-        setCheckSum(sum)
-    }
-    useEffect(() => {
-        newFetcher(arraysObject)
-    }, [])
-
-/*****************************************************************************/
+    const n_topicData = props.topicData
+    const topicArray = Object.keys(n_topicData)
 
 
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
+    const [token, setToken] = useState()
 
     const [userStats, setUserStats] = useState()
     
@@ -65,8 +29,8 @@ export default function Login() {
                 const data = await res.json()
 
                 const userData = data.foundUser.userStats
-                setUserStats({Napoleon: userData.napoleonLevel, Coding: userData.codingLevel})
-
+                
+                setUserStats(levelFunc(userData, topicArray, false))
                 setToken(data.accessToken)
 
                 alert("Login successful!")
@@ -81,7 +45,7 @@ export default function Login() {
                 const newData = await newRes.json()
                 
                 const userData = newData.foundUser.userStats
-                setUserStats({Napoleon: userData.napoleonLevel, Coding: userData.codingLevel})
+                setUserStats(levelFunc(userData, topicArray, false))
                 
                 setToken(newData.accessToken)
 
@@ -176,7 +140,7 @@ export default function Login() {
                 
                 </div>
                 </div>}
-                {token && checkSum == sum && <div className="mainBody">
+                {token && <div className="mainBody">
                     
 
                     <Vid levels = {userStats} data = {n_topicData} user = {username} userToken = {token} /> 
@@ -196,3 +160,5 @@ export default function Login() {
         
     )
 } 
+
+export default Login

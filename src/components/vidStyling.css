@@ -1,0 +1,48 @@
+
+.videoSection {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#vid {
+    display: inline-block;
+    width: 60vw;
+    height: 30vw;
+}
+
+
+.shifter {
+    height: 8vw;
+    width: 12vw;
+    background: transparent;
+    transition-duration: 0.5s;
+    border: 4vw;
+    font-size: 6vw;
+    color: white;
+}
+
+.shifter:hover {
+    font-size: 8vw;
+    color: yellow;
+}
+
+/*********************************************************************/
+
+@media screen and (max-width: 600px) {
+    .videoSection {
+        display: grid;
+    }
+    #vid {
+        width: 80vw;
+        height: 40vw;
+    }
+    .shifter {
+        height: 10vw;
+        width: 15vw;
+    }
+}
+
+
+/*********************************************************************/
